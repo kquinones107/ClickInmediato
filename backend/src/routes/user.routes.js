@@ -9,12 +9,12 @@ router.post('/', async (req, res) => {
     const { username, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = new User({ username, email, password });
+    const newUser = new User({ username, email, password: hashedPassword });
     const savedUser = await newUser.save();
 
     res.status(201).json(savedUser);
   } catch (err) {
-    res.status(500).json({ message: 'Error al crear usuario', error: err });
+    res.status(400).json({ message: 'Error al crear usuario', error: err });
   }
 });
 
@@ -24,9 +24,11 @@ router.post('/login', async (req, res) => {
     try {
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ message: 'Usuario no encontrado' });
+            return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
+        console.log({ inputPassword: password, dbPassword: user.password });
+        
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ message: 'Credenciales incorrectas' });
