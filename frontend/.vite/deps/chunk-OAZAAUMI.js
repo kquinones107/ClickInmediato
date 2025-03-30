@@ -1,7 +1,9 @@
 import {
-  __commonJS,
   require_react
-} from "./chunk-UBDIXFPO.js";
+} from "./chunk-6GAV2S6I.js";
+import {
+  __commonJS
+} from "./chunk-DC5AMYBS.js";
 
 // node_modules/react-dom/cjs/react-dom.development.js
 var require_react_dom_development = __commonJS({
@@ -250,6 +252,7 @@ var require_react_dom_development = __commonJS({
 // node_modules/react-dom/index.js
 var require_react_dom = __commonJS({
   "node_modules/react-dom/index.js"(exports, module) {
+    "use strict";
     if (false) {
       checkDCE();
       module.exports = null;
@@ -275,4 +278,4 @@ react-dom/cjs/react-dom.development.js:
    * LICENSE file in the root directory of this source tree.
    *)
 */
-//# sourceMappingURL=chunk-KBNVMJOC.js.map
+//# sourceMappingURL=chunk-OAZAAUMI.js.map
