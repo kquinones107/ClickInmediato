@@ -34,8 +34,8 @@ const Register = () => {
                 <input
                     type="text"
                     name="username"
-                    placeholder="Name"
-                    value={form.name}
+                    placeholder="Usuario"
+                    value={form.username}
                     onChange={handleChange}
                     required
                 />
