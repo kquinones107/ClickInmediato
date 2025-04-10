@@ -6,10 +6,13 @@ const jwt = require('jsonwebtoken');
 
 router.post('/', async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, role } = req.body;
+
+    console.log("➡️ Recibido en registro:", { username, email, role });
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = new User({ username, email, password: hashedPassword });
+    const newUser = new User({ username, email, password: hashedPassword, role });
     const savedUser = await newUser.save();
 
     res.status(201).json(savedUser);
@@ -27,7 +30,7 @@ router.post('/login', async (req, res) => {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
-        console.log({ inputPassword: password, dbPassword: user.password });
+        console.log({ inputPassword: password, dbPassword: user.password, role: user.role });
         
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {

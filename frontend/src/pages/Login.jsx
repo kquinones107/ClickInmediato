@@ -28,6 +28,7 @@ const Login = () => {
       login(res.data.user, res.data.token);
 
       alert("✅ Login exitoso");
+      console.log("📦 Usuario guardado:", res.data.user)
       navigate("/products"); // o donde quieras redirigir
     } catch (err) {
       console.error("❌ Error al iniciar sesión:", err.response?.data || err.message);
