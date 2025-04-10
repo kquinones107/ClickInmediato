@@ -18,10 +18,12 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = (userData, token) => {
+        console.log("📦 Usuario guardado:", userData)
         setUser(userData);
         setToken(token);
         localStorage.setItem("user", JSON.stringify(userData));
         localStorage.setItem("token", token);
+        
     };
 
     const logout = () => {  
