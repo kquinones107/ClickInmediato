@@ -11,7 +11,8 @@ import Register from "./pages/Register";
 
 function App() {
   // Access user from context
-  const { user } = useContext(AuthContext); // Ensure UserContext is properly set up and imported
+  const { user } = useContext(AuthContext);
+  console.log("👤 Usuario en App:", user); // Verifica el usuario aquí
   // Access user from context
 
   return (

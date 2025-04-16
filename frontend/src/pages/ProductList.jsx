@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ProductCard from "../components/ProductCard";
+import ProductFilter from "../components/ProductFilter";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
  
 
   useEffect(() => {
@@ -19,45 +24,39 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
-  const filteredProducts = products.filter((product) => 
-    product.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredProducts = products.filter((product) => {
+    const matchesSearch = product.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = categoryFilter
+      ? product.category?.toLowerCase().includes(categoryFilter.toLowerCase())
+      : true;
+    const matchesMin = minPrice ? parseFloat(product.price) >= parseFloat(minPrice) : true;
+    const matchesMax = maxPrice ? parseFloat(product.price) <= parseFloat(maxPrice) : true;
+
+    return matchesSearch && matchesCategory && matchesMin && matchesMax;
+  });
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white p-6">
       <h1 className="text-4xl font-bold text-center text-blue-700 mb-8">🛍️ Productos</h1>
 
-      <div className="flex justify-center mb-10">
-        <input
-          type="text"
-          placeholder="🔍 Buscar productos..."
-          className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
+      <ProductFilter
+        searchTerm={searchTerm}
+        categoryFilter={categoryFilter}
+        minPrice={minPrice}
+        maxPrice={maxPrice}
+        setSearchTerm={setSearchTerm}
+        setCategoryFilter={setCategoryFilter}
+        setMinPrice={setMinPrice}
+        setMaxPrice={setMaxPrice}
+      />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6">
-        {filteredProducts.map((product) => (
-        <div
-            key={product._id}
-            className="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow"
-        >
-        <img
-            src={product.images[0] || "https://via.placeholder.com/300"}
-            alt={product.title}
-            className="w-full h-48 object-cover"
-        />
-        <div className="p-4">
-            <h3 className="text-xl font-semibold text-gray-800">{product.title}</h3>
-            <p className="text-gray-600 text-sm">{product.description}</p>
-            <p className="text-indigo-600 font-bold mt-2">${product.price}</p>
-            <p className="text-xs text-gray-500">Por: {product?.seller?.username || "Desconocido"}</p>
-        </div>
-        </div>
-        ))}
-        </div>
+          {filteredProducts.map((product) => (
+             <ProductCard key={product._id} product={product} />
+          ))}
+      </div>
     </div>
   );
 };
+
 export default ProductList;

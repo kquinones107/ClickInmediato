@@ -45,59 +45,86 @@ const CreateProduct = () => {
               }
         };
 
-    return (
-        <div className="create-product-container">
-            <h1>Create Product</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="title"
-                    placeholder="Product Name"
-                    value={form.title}
-                    onChange={handleChange}
-                    required
-                />
-                <textarea
-                    name="description"
-                    placeholder="Description"
-                    value={form.description}
-                    onChange={handleChange}
-                    required
-                ></textarea>
-                <input
-                    type="number"
-                    name="price"
-                    placeholder="Price"
-                    value={form.price}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="text"
-                    name="images"
-                    placeholder="Images (comma separated)"
-                    value={form.images}
-                    onChange={handleChange}
-                />
-                <input
-                    type="text"
-                    name="category"
-                    placeholder="Category"
-                    value={form.category}
-                    onChange={handleChange}
-                />
-                <input
-                    type="number"
-                    name="stock"
-                    placeholder="Stock"
-                    value={form.stock}
-                    onChange={handleChange}
-                />
-                <button type="submit">Create Product</button>
-            </form>
-        </div>
-    );
-
-};
-
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+              <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+                <h2 className="text-2xl font-bold text-center text-blue-600 mb-6">Crear Producto</h2>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <label className="block mb-1 font-medium text-gray-700">Título</label>
+                    <input
+                      type="text"
+                      name="title"
+                      value={form.title}
+                      onChange={handleChange}
+                      required
+                      className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                  </div>
+                  <div>
+                    <label className="block mb-1 font-medium text-gray-700">Descripción</label>
+                    <textarea
+                      name="description"
+                      value={form.description}
+                      onChange={handleChange}
+                      required
+                      className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    ></textarea>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block mb-1 font-medium text-gray-700">Precio</label>
+                      <input
+                        type="number"
+                        name="price"
+                        value={form.price}
+                        onChange={handleChange}
+                        required
+                        className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      />
+                    </div>
+                    <div>
+                      <label className="block mb-1 font-medium text-gray-700">Stock</label>
+                      <input
+                        type="number"
+                        name="stock"
+                        value={form.stock}
+                        onChange={handleChange}
+                        required
+                        className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block mb-1 font-medium text-gray-700">Categoría</label>
+                    <input
+                      type="text"
+                      name="category"
+                      value={form.category}
+                      onChange={handleChange}
+                      className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                  </div>
+                  <div>
+                    <label className="block mb-1 font-medium text-gray-700">Imágenes (URLs separadas por coma)</label>
+                    <input
+                      type="text"
+                      name="images"
+                      value={form.images}
+                      onChange={handleChange}
+                      className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition"
+                  >
+                    Crear
+                  </button>
+                </form>
+              </div>
+            </div>
+          );
+        };
+        
 export default CreateProduct;
