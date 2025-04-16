@@ -4,6 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => { 
     const { user, logout } = useContext(AuthContext);
+    console.log("👤 Usuario en Navbar:", user); // Verifica el usuario aquí
 
     return (
         <nav className="bg-white shadow-md px-6 py-4 flex justify-between items-center">
