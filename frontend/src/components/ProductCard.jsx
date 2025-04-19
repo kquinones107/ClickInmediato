@@ -1,4 +1,5 @@
 import React from "react";
+import ProductAction from "./ProductAction";
 
 const ProductCard = ({ product }) => {
   const { title, description, price, images, seller, category } = product;
@@ -15,6 +16,16 @@ const ProductCard = ({ product }) => {
       <p className="text-lg font-bold text-blue-600 mt-2">${price}</p>
       <p className="text-sm text-gray-500">Por: {seller?.username || "Desconocido"}</p>
       <p className="text-sm text-gray-500">Categoría: {category || "Sin categoría"}</p>
+
+      <ProductAction product={product} sellerId={seller?._id} />
+       <div className="mt-4 flex justify-between items-center">
+        <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          Ver Detalles
+        </button>
+        <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+          Comprar
+        </button>
+        </div> 
     </div>
   );
 };
