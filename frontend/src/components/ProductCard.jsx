@@ -1,8 +1,18 @@
 import React from "react";
 import ProductAction from "./ProductAction";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
+import { AuthContext } from "../context/AuthContext";
 
 const ProductCard = ({ product }) => {
   const { title, description, price, images, seller, category } = product;
+  const { addToCart } = useContext(CartContext);
+  const { user } = useContext(AuthContext);
+
+  const handleAddToCart = () => {
+    addToCart(product);
+    alert("✅ Producto agregado al carrito");
+  }
 
   return (
     <div className="bg-white rounded-2xl p-4 w-full max-w-sm flex flex-col">
@@ -17,15 +27,16 @@ const ProductCard = ({ product }) => {
       <p className="text-sm text-gray-500">Por: {seller?.username || "Desconocido"}</p>
       <p className="text-sm text-gray-500">Categoría: {category || "Sin categoría"}</p>
 
+      {user?.role === "buyer" && (
+      <button
+        onClick={() => handleAddToCart(product)}
+        className="mt-4 bg-green-500 text-white text-sm py-2 px-4 rounded hover:bg-green-600"
+      >
+        Agregar al carrito
+      </button>
+      )}
       <ProductAction product={product} sellerId={seller?._id} />
-       <div className="mt-4 flex justify-between items-center">
-        <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-          Ver Detalles
-        </button>
-        <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-          Comprar
-        </button>
-        </div> 
+       
     </div>
   );
 };

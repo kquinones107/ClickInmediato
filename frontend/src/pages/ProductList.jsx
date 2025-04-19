@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCard from "../components/ProductCard";
 import ProductFilter from "../components/ProductFilter";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -9,6 +11,7 @@ const ProductList = () => {
   const [categoryFilter, setCategoryFilter] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const { user } = useContext(AuthContext);
  
 
   useEffect(() => {
@@ -33,6 +36,12 @@ const ProductList = () => {
     const matchesMax = maxPrice ? parseFloat(product.price) <= parseFloat(maxPrice) : true;
 
     return matchesSearch && matchesCategory && matchesMin && matchesMax;
+  })
+  .filter((product) => {
+    if (user?.role === "seller") {
+      return product.seller?._id === user.id;
+    }
+    return true;
   });
 
   return (

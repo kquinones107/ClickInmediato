@@ -7,6 +7,8 @@ import CreateProduct from "./pages/CreateProduct";
 import EditProduct from "./pages/EditProduct";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 
 
 function App() {
@@ -36,6 +38,26 @@ function App() {
             } 
             />
             <Route path="/edit-product/:id" element={<EditProduct />} />
+            <Route 
+              path="/cart" 
+              element={
+                user?.role === "buyer" ? (
+                  <Cart />
+                ) : (
+                  <Navigate to="/products" />
+                )
+              } 
+            />
+            <Route 
+              path="/checkout"
+              element={
+                user?.role === "buyer" ? (
+                  <Checkout />
+                ) : (
+                  <Navigate to="/products" />
+                )
+              }
+            />
           </Routes>
         </div>
       </div>
